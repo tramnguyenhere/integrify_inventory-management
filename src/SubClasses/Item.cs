@@ -77,11 +77,33 @@ class Item
 
     public void IncreaseQuantity(int value)
     {
-        Quantity += value;
+        if (value > 0)
+        {
+            Quantity += value;
+        }
+        else
+        {
+            throw new Exception("Invalid quantity. The quantity of items must be greater than 0.");
+        }
     }
 
     public void DecreaseQuantity(int value)
     {
+        if (value > 0)
+        {
+            if (Quantity >= value)
+            {
+                Quantity -= value;
+            }
+            else
+            {
+                throw new Exception("Invalid quantity. Not enough items in the inventory.");
+            }
+        }
+        else
+        {
+            throw new Exception("Invalid quantity. The quantity of items must be greater than 0.");
+        }
         Quantity -= value;
     }
 }
