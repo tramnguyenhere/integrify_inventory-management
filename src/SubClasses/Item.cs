@@ -1,6 +1,6 @@
-namespace Inventory;
+namespace Feature;
 
-class Item
+public class Item
 {
     private string _barcode;
     private string _name;
@@ -70,10 +70,10 @@ class Item
         _quantity = quantity;
     }
 
-    static public void PrintItem(Item item)
-    {
-        Console.WriteLine($"Barcode: {item.Barcode}, Item Name: {item.Name}, Quantity: {item.Quantity}");
-    }
+    // static public void PrintItem(Item item)
+    // {
+    //     Console.WriteLine($"Barcode: {item.Barcode}, Item Name: {item.Name}, Quantity: {item.Quantity}");
+    // }
 
     public void IncreaseQuantity(int value)
     {

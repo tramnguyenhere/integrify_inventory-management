@@ -1,4 +1,4 @@
-﻿using Inventory;
+﻿using Feature;
 
 internal class Program
 {
@@ -7,6 +7,11 @@ internal class Program
         var item1 = new Item("abc123", "Book", 30);
         item1.IncreaseQuantity(20);
         Console.WriteLine("Quantity after the increase: " + item1.Quantity);
-        Item.PrintItem(item1);
+        var listItems = new Inventory(100);
+        listItems.AddItem("abc", "Book", 30);
+        Console.WriteLine(listItems.Items[0].Name);
+        listItems.AddItem("abc", "BookNew", 30);
+        Console.WriteLine(listItems.Items[0].Name);
+        listItems.RemoveItem("abc");
     }
 }
