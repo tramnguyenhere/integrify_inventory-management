@@ -13,7 +13,7 @@ Create class `Inventory`, which can have only 1 instance, with the following pro
 `maxCapacity`: stores the maximum total amount of items that can be stored in the inventory.
 2. A constructor that takes an integer value as the maximum capacity of the inventory and initializes the items.
 Use access modifiers to protect the `items` and `maxCapacity` property from direct external modifications.
-3. Method `AddItem` that takes two string parameters (item and item quantity) and adds the item to the inventory. If the inventory reaches `maxCapacity`, the method should return false. Otherwise, it should add or replace the item in `items`.
+3. Method `AddItem` that takes two parameters (item and item quantity) and adds the item to the inventory. If the inventory reaches `maxCapacity`, the method should return false. Otherwise, it should add or replace the item in `items`.
 4. Method `RemoveItem` that takes a string parameter (item barcode) and removes the item from the inventory. If the item does not exist in the inventory, the method should return false. Otherwise, it should remove the item from items and return true.
 5. Method `IncreaseQuantity` that takes an integer parameter and a string parameter (item barcode), and increase the amount of item in the inventory.
 6. Method `DecreaseQuantity` that takes an integer parameter and a string parameter (item barcode), and decrease the amount of item in the inventory.
