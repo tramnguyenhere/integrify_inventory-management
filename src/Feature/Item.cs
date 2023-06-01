@@ -1,6 +1,6 @@
 namespace Feature;
 
-public class Item
+class Item
 {
     private string _barcode;
     private string _name;
@@ -70,10 +70,10 @@ public class Item
         _quantity = quantity;
     }
 
-    // static public void PrintItem(Item item)
-    // {
-    //     Console.WriteLine($"Barcode: {item.Barcode}, Item Name: {item.Name}, Quantity: {item.Quantity}");
-    // }
+    static public void PrintItem(Item item)
+    {
+        Console.WriteLine($"Barcode: {item.Barcode}, Item Name: {item.Name}, Quantity: {item.Quantity}");
+    }
 
     public void IncreaseQuantity(int value)
     {
@@ -104,6 +104,5 @@ public class Item
         {
             throw new Exception("Invalid quantity. The quantity of items must be greater than 0.");
         }
-        Quantity -= value;
     }
 }

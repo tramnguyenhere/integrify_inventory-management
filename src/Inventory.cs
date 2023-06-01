@@ -1,22 +1,9 @@
 using Feature;
 
-public class Inventory
+class Inventory
 {
     private List<Item> _items;
     private int _maxCapacity;
-
-    public List<Item> Items
-    {
-        get
-        {
-            return _items;
-        }
-
-        set
-        {
-            _items = value;
-        }
-    }
 
     public int MaxCapacity
     {
@@ -38,22 +25,37 @@ public class Inventory
         }
     }
 
-    private int GetTotalQuantity()
+    public Item this[int index]
+    {
+        get
+        {
+            if (index >= 0 && index < _items.Count)
+            {
+                return _items[index];
+            }
+            else
+            {
+                throw new Exception("Index is out of range.");
+            }
+        }
+    }
+
+    public int GetTotalQuantity()
     {
         int totalQuantity = 0;
 
-        foreach (Item item in Items)
+        foreach (Item item in _items)
         {
             totalQuantity += item.Quantity;
         }
         return totalQuantity;
     }
 
-    private bool CheckUniqueBarcode(string barcode)
+    private bool isBarcodeUnique(string barcode)
     {
         bool isUnique = true;
 
-        foreach (Item item in Items)
+        foreach (Item item in _items)
         {
             if (item.Barcode != barcode)
             {
@@ -75,12 +77,12 @@ public class Inventory
         _maxCapacity = maxCapacity;
     }
 
-    public void AddItem(string barcode, string item, int quantity)
+    public void AddItem(Item item, int quantity)
     {
         int totalQuantity = GetTotalQuantity();
-        bool isItemAvailable = !CheckUniqueBarcode(barcode);
+        bool isItemAvailable = !isBarcodeUnique(item.Barcode);
 
-        Item addedItem = new Item(barcode, item, quantity);
+        Item addedItem = new Item(item.Barcode, item.Name, quantity);
 
         if (totalQuantity + quantity > MaxCapacity)
         {
@@ -90,13 +92,13 @@ public class Inventory
         {
             if (isItemAvailable)
             {
-                int availableItemIndex = Items.FindIndex(Item => Item.Barcode == barcode);
-                Items[availableItemIndex] = addedItem;
+                int availableItemIndex = _items.FindIndex(Item => Item.Barcode == item.Barcode);
+                _items[availableItemIndex] = addedItem;
                 Console.WriteLine("Item replaced successfully!");
             }
             else
             {
-                Items.Add(addedItem);
+                _items.Add(addedItem);
                 Console.WriteLine("Item added successfully!");
             }
         }
@@ -104,7 +106,7 @@ public class Inventory
 
     public void RemoveItem(string barcode)
     {
-        bool isItemAvailable = !CheckUniqueBarcode(barcode);
+        bool isItemAvailable = !isBarcodeUnique(barcode);
 
         if (!isItemAvailable)
         {
@@ -112,8 +114,8 @@ public class Inventory
         }
         else
         {
-            int deletedItemIndex = Items.FindIndex(Item => Item.Barcode == barcode);
-            Items.RemoveAt(deletedItemIndex);
+            int deletedItemIndex = _items.FindIndex(Item => Item.Barcode == barcode);
+            _items.RemoveAt(deletedItemIndex);
             Console.WriteLine("Item deleted successfully!");
         }
     }
