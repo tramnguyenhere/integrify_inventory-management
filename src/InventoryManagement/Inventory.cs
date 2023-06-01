@@ -1,4 +1,5 @@
-using Feature;
+using System.Text;
+namespace InventoryManagement;
 
 class Inventory
 {
@@ -40,6 +41,14 @@ class Inventory
         }
     }
 
+
+
+    public Inventory(int maxCapacity)
+    {
+        _items = new List<Item>();
+        _maxCapacity = maxCapacity;
+    }
+
     public int GetTotalQuantity()
     {
         int totalQuantity = 0;
@@ -49,6 +58,17 @@ class Inventory
             totalQuantity += item.Quantity;
         }
         return totalQuantity;
+    }
+
+    public int GetTotalNumberOfItems()
+    {
+        int totalItems = 0;
+
+        foreach (Item item in _items)
+        {
+            totalItems += 1;
+        }
+        return totalItems;
     }
 
     private bool isBarcodeUnique(string barcode)
@@ -70,13 +90,6 @@ class Inventory
         return isUnique;
     }
 
-
-    public Inventory(int maxCapacity)
-    {
-        _items = new List<Item>();
-        _maxCapacity = maxCapacity;
-    }
-
     public void AddItem(Item item, int quantity)
     {
         int totalQuantity = GetTotalQuantity();
@@ -93,7 +106,7 @@ class Inventory
             if (isItemAvailable)
             {
                 int availableItemIndex = _items.FindIndex(Item => Item.Barcode == item.Barcode);
-                _items[availableItemIndex] = addedItem;
+                _items[availableItemIndex].Quantity += addedItem.Quantity;
                 Console.WriteLine("Item replaced successfully!");
             }
             else
@@ -117,6 +130,53 @@ class Inventory
             int deletedItemIndex = _items.FindIndex(Item => Item.Barcode == barcode);
             _items.RemoveAt(deletedItemIndex);
             Console.WriteLine("Item deleted successfully!");
+        }
+    }
+
+    public void IncreaseQuantity(int quantity, string barcode)
+    {
+        int itemIndex = _items.FindIndex(item => item.Barcode == barcode);
+
+        if (itemIndex >= 0)
+        {
+            _items[itemIndex].Quantity += quantity;
+            Console.WriteLine("The quantity has been updated!");
+        }
+        else
+        {
+            throw new Exception("The item cannot be found!");
+        }
+    }
+
+    public void DecreaseQuantity(int quantity, string barcode)
+    {
+        int itemIndex = _items.FindIndex(item => item.Barcode == barcode);
+
+        if (itemIndex >= 0 && _items[itemIndex].Quantity > quantity)
+        {
+            if (_items[itemIndex].Quantity > quantity)
+            {
+                _items[itemIndex].Quantity -= quantity;
+                Console.WriteLine("The quantity has been updated!");
+            }
+            else
+            {
+                throw new Exception("The decrease amount cannot be over the actual quantity!");
+            }
+        }
+        else
+        {
+            throw new Exception("The item cannot be found !");
+        }
+    }
+
+    public void ViewInventory()
+    {
+        Console.WriteLine("List of items:\n---");
+        foreach (var item in _items)
+        {
+            Console.WriteLine($"Barcode: {item.Barcode}\nName: {item.Name}\nQuantity: {item.Quantity}\n");
+            Console.WriteLine("---");
         }
     }
 }

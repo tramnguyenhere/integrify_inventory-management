@@ -1,4 +1,4 @@
-namespace Feature;
+namespace InventoryManagement;
 
 class Item
 {
