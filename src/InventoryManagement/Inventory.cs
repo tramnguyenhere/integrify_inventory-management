@@ -179,4 +179,9 @@ class Inventory
             Console.WriteLine("---");
         }
     }
+
+    ~Inventory()
+    {
+        Console.WriteLine("Inventory is destroyed.");
+    }
 }
